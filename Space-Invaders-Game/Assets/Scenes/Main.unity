@@ -302,6 +302,62 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!1 &515135614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 515135616}
+  - component: {fileID: 515135615}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &515135615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515135614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226de0c818dcc724993d7726daf2adc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesPerLayer: 11
+  numOfLayers: 5
+  numOfEnemies: 0
+  enemies: []
+  positionToSpawn: {x: 0, y: 0, z: 0}
+  startingPosition: {x: -4, y: 7.5, z: 0}
+  enemyParent: {fileID: 515135616}
+  myGM: {fileID: 885790115}
+  enemyPrefabs:
+  - {fileID: 2520312954670346325, guid: ab9fb5bcca3ed9b44b2bbd14bd12cae8, type: 3}
+  - {fileID: 2520312954670346325, guid: f345d6478356ddb439b8548ff0cc6b7f, type: 3}
+  - {fileID: 2520312954670346325, guid: 0f771ab2a12300e479a033500fa06398, type: 3}
+  - {fileID: 2520312954670346325, guid: f1eff36b38aeebb42ba87376ca534d2b, type: 3}
+--- !u!4 &515135616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515135614}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.9999998, y: 7.1, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2059412033}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +543,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 215251314}
+  - {fileID: 515135616}
   m_Father: {fileID: 1705881544}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
