@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     float elapsedTime;
     GameManager myGM;
     //Rigidbody2D enemyRB;
-    float enemyMovementSpeed = 1;
+    //float enemyMovementSpeed = 1;
     // Start is called before the first frame update
     void Start()
     {

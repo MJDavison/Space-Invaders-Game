@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -50,18 +51,12 @@ public class EnemySpawner : MonoBehaviour
             positionToSpawn = new Vector3(startingPosition.x, positionToSpawn.y-0.8f, positionToSpawn.z);
         }
 
-        //InvokeRepeating("MoveEnemy", 5, 2);
+        InvokeRepeating("MoveEnemy", 5, 2);
     }
-
+    float directionToMove = 0.1f;
     public void MoveEnemy(){
-        float directionToMove = 0.1f;
         
-        
-        //Move player
-        
-        
-        print(transform.position.x);
-        if(transform.position.x.Equals(4.5)){
+        if(Mathf.Approximately(transform.position.x, 4.5f)||Mathf.Approximately(transform.position.x, 3.5f)){
             //(float)transform.position.x == (float)myGM.BottomRightCorner.x
             if(directionToMove.Equals(0.1f)){
                 directionToMove = -0.1f;
@@ -71,6 +66,11 @@ public class EnemySpawner : MonoBehaviour
                 print("Direction To Move Changed");
             }            
         }
+        
+        
+                
+        print(Math.Round(transform.position.x, 15).ToString());
+        
         transform.Translate(new Vector2(directionToMove, 0));
         print("Direction To Move:" + directionToMove);
         //enemyRB.velocity = Vector2.right * directionToMove * enemyMovementSpeed;

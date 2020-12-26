@@ -339,6 +339,7 @@ MonoBehaviour:
   startingPosition: {x: -4, y: 7.5, z: 0}
   enemyParent: {fileID: 515135616}
   myGM: {fileID: 885790115}
+  enemy: {fileID: 0}
   enemyPrefabs:
   - {fileID: 2520312954670346325, guid: ab9fb5bcca3ed9b44b2bbd14bd12cae8, type: 3}
   - {fileID: 2520312954670346325, guid: f345d6478356ddb439b8548ff0cc6b7f, type: 3}
