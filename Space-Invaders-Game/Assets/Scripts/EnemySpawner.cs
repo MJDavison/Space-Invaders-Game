@@ -28,11 +28,13 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int enemyID = 0;
         int enemyToSpawn = 0;
         for (int i = 0; i < numOfLayers; i++)
         {
             for (int j = 1; j <= enemiesPerLayer; j++)
             {
+                enemyID++;
                 if (i == 0){
                     enemyToSpawn = 2;
                 }
@@ -44,6 +46,7 @@ public class EnemySpawner : MonoBehaviour
                 enemy = Instantiate(enemyPrefabs[enemyToSpawn],positionToSpawn, enemyPrefabs[enemyToSpawn].transform.rotation);                                        
                 enemy.transform.parent = enemyParent;
                 enemy.GetComponent<Enemy>().Layer = i;
+                enemy.name = "Enemy ID: "+enemyID;
                 enemies.Add(enemy);
                 
                 positionToSpawn = new Vector3(positionToSpawn.x + 0.8f, positionToSpawn.y, positionToSpawn.z);
@@ -54,25 +57,27 @@ public class EnemySpawner : MonoBehaviour
         InvokeRepeating("MoveEnemy", 5, 2);
     }
     float directionToMove = 0.1f;
+    float loopCompletion;
     public void MoveEnemy(){
         
         if(Mathf.Approximately(transform.position.x, 4.5f)||Mathf.Approximately(transform.position.x, 3.5f)){
             //(float)transform.position.x == (float)myGM.BottomRightCorner.x
             if(directionToMove.Equals(0.1f)){
-                directionToMove = -0.1f;
-                print("Direction To Move Changed");
+                directionToMove = -0.1f;                
+                //print("Direction To Move Changed");
             } else{
                 directionToMove = 0.1f;
-                print("Direction To Move Changed");
+                //print("Direction To Move Changed");            
             }            
+            transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
         }
         
         
-                
-        print(Math.Round(transform.position.x, 15).ToString());
         
+        print(Math.Round(transform.position.x, 15).ToString());
+        print(loopCompletion);
         transform.Translate(new Vector2(directionToMove, 0));
-        print("Direction To Move:" + directionToMove);
+        //print("Direction To Move:" + directionToMove);
         //enemyRB.velocity = Vector2.right * directionToMove * enemyMovementSpeed;
         
     }
