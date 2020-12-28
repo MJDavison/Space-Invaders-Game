@@ -6,10 +6,11 @@ using UnityEngine.InputSystem;
 
 public class EnemySpawner : MonoBehaviour
 {
+
+    [SerializeField] EnemyManager EnemyManager;
     [SerializeField] int enemiesPerLayer;
     [SerializeField] int numOfLayers;
-    [ReadOnly] [SerializeField] int numOfEnemies;
-    [ReadOnly] [SerializeField] List<GameObject> enemies;
+    [ReadOnly] [SerializeField] int numOfEnemies;    
     [ReadOnly] [SerializeField] Vector3 positionToSpawn;
     [SerializeField] Vector3 startingPosition;
     [SerializeField] Transform enemyParent;
@@ -19,8 +20,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject[] enemyPrefabs; // 3 normal, 1 fly over for a total of 4.
 
     private void Awake()
-    {
-        enemies = new List<GameObject>();
+    {        
         numOfEnemies = enemiesPerLayer * numOfLayers;
         //startingPosition = new Vector3(-2.5f, 7.5f, 0f);
         positionToSpawn = startingPosition;
@@ -47,17 +47,19 @@ public class EnemySpawner : MonoBehaviour
                 enemy.transform.parent = enemyParent;
                 enemy.GetComponent<Enemy>().Layer = i;
                 enemy.name = "Enemy ID: "+enemyID;
-                enemies.Add(enemy);
+                EnemyManager.AllEnemiesArray.Add(enemy);
+                
                 
                 positionToSpawn = new Vector3(positionToSpawn.x + 0.8f, positionToSpawn.y, positionToSpawn.z);
             }
             positionToSpawn = new Vector3(startingPosition.x, positionToSpawn.y-0.8f, positionToSpawn.z);
         }
 
+
+
         InvokeRepeating("MoveEnemy", 5, 2);
     }
-    float directionToMove = 0.1f;
-    float loopCompletion;
+    float directionToMove = 0.1f;    
     public void MoveEnemy(){
         
         if(Mathf.Approximately(transform.position.x, 4.5f)||Mathf.Approximately(transform.position.x, 3.5f)){
@@ -74,18 +76,10 @@ public class EnemySpawner : MonoBehaviour
         
         
         
-        print(Math.Round(transform.position.x, 15).ToString());
-        print(loopCompletion);
+        //print(Math.Round(transform.position.x, 15).ToString());        
         transform.Translate(new Vector2(directionToMove, 0));
         //print("Direction To Move:" + directionToMove);
         //enemyRB.velocity = Vector2.right * directionToMove * enemyMovementSpeed;
         
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if(Keyboard.current.tabKey.wasPressedThisFrame){
-            MoveEnemy();
-        }
-    }
+    }    
 }

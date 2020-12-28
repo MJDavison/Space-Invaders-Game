@@ -131,7 +131,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &-4228610404881851898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b10de170063ad408b5c86ac437d27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyManager: {fileID: 0}
+  enemyComponent: {fileID: 0}
   lowestEnemyInLane: 0
   projectilePrefab: {fileID: 806288048571458138, guid: c77cfad4314366342b02c374480b4cf1,
     type: 3}
@@ -160,3 +162,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 0
+  pointWorth: 20

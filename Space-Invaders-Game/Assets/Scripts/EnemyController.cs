@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] EnemyManager EnemyManager;
+    [SerializeField] Enemy enemyComponent;
     float elapsedTime;
     GameManager myGM;
     Ray2D ray;
     RaycastHit2D hit;
     [SerializeField] bool lowestEnemyInLane;
     [SerializeField] GameObject projectilePrefab;
+
+    GameObject GameController;
 
     float shotCoolDown;
 
@@ -18,7 +22,10 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myGM = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();                        
+        GameController = GameObject.FindGameObjectWithTag("GameController");
+        EnemyManager = GameController.GetComponent<EnemyManager>();        
+        enemyComponent = GetComponent<Enemy>();
+        myGM = GameController.GetComponent<GameManager>();                        
     }
 
     
@@ -40,34 +47,41 @@ public class EnemyController : MonoBehaviour
         }
         
         if(lowestEnemyInLane){
-            //print("I am the lowest!" + transform.name);
+            EnemyManager.AddToBottonLayerArray(gameObject);
         }
         
     }
 
-    private void LateUpdate() {
-        int valueToFire = 5;
-        if(lowestEnemyInLane && shotCoolDown <= 0){
-            if(Random.Range(0,11) == valueToFire){
-                Shoot();
-            }
-            //Can shoot, so shoot every few seconds.            
-        }
-    }
+    // private void LateUpdate() {
+    //     int valueToFire = 5;
+    //     if(lowestEnemyInLane && shotCoolDown <= 0){
+    //         if(Random.Range(0,11) == valueToFire){
+    //             Shoot();
+    //         }
+    //         //Can shoot, so shoot every few seconds.            
+    //     }
+    // }
 
-    private void Shoot(){        
-        GameObject projectile =  Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y - 0.3f), projectilePrefab.transform.rotation);
-        projectile.GetComponent<Rigidbody2D>().velocity = Vector2.down * 5;
-        shotCoolDown = 5;
+    // private void Shoot(){        
+    //     
+    //     shotCoolDown = 5;
         
-    }
+    // }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Projectile")){
             Destroy(gameObject);
+            EnemyManager.RemoveFromBottomLayerArray(gameObject);
+            EnemyManager.AllEnemiesArray.Remove(gameObject);
+            myGM.ScoreManager.PlayerOneScore += enemyComponent.PointWorth;
             Destroy(other.gameObject);
             //Add score etc...
         }
+    }
+
+    public void Shoot(){
+        GameObject projectile =  Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y - 0.3f), projectilePrefab.transform.rotation);
+        projectile.GetComponent<Rigidbody2D>().velocity = Vector2.down * 5;
     }
 
 }

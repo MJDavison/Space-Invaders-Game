@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {    
     [SerializeField] int layer;    
+    [SerializeField] int pointWorth;
 
     public Enemy(int layer)
     {                        
@@ -13,4 +14,5 @@ public class Enemy : MonoBehaviour
     }
 
     public int Layer { get => layer; set => layer = value; }
+    public int PointWorth { get => pointWorth; set => pointWorth = value; }
 }

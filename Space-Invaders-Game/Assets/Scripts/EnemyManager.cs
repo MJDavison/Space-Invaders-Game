@@ -3,26 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
-{
-    //GameObject[,] enemies;
-    [SerializeField] GameObject[,] enemies;
-    [SerializeField] int enemiesPerLayer;
-    [SerializeField] int numOfLayers;
+{    
+    
+    [SerializeField] GameManager myGM;
 
+    [SerializeField] List<GameObject> bottomLayerEnemiesArray;
+    [SerializeField] List<GameObject> allEnemiesArray;
+
+    public List<GameObject> AllEnemiesArray { get => allEnemiesArray; set => allEnemiesArray = value; }
+    
     private void Awake() {
-        enemies = new GameObject[enemiesPerLayer,numOfLayers];
+        bottomLayerEnemiesArray = new List<GameObject>(11);;
+        AllEnemiesArray = new List<GameObject>();        
         
     }
+
+    private void Update() {
+        if(allEnemiesArray.Count == 0){
+            myGM.GameOver();
+        }
+    }
+
+    
     // Start is called before the first frame update
     void Start()
-    {
-        GameObject test = new GameObject();
-        enemies[0,0] = test; //This would be the enemy on the top layer, furthest left.
+    {            
+        if(myGM.state == GAME_STATE.GAME){  
+            InvokeRepeating("ChooseEnemyToFire",5,2);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    public void AddToBottonLayerArray(GameObject enemy){
+        if(!bottomLayerEnemiesArray.Contains(enemy)){
+            bottomLayerEnemiesArray.Add(enemy);
+        }
         
     }
+
+    public void RemoveFromBottomLayerArray(GameObject enemy){
+        if(bottomLayerEnemiesArray.Contains(enemy)){
+            bottomLayerEnemiesArray.Remove(enemy);
+        }
+        
+    }
+
+    public void ChooseEnemyToFire(){        
+        if(bottomLayerEnemiesArray.Count > 0) {
+            int enemyInArray = Random.Range(0,bottomLayerEnemiesArray.Count-1);
+            bottomLayerEnemiesArray[enemyInArray].GetComponent<EnemyController>().Shoot();
+        }
+    }
+
+
 }
