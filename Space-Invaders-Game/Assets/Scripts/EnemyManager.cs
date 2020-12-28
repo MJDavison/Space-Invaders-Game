@@ -1,37 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {    
     
-    [SerializeField] GameManager myGM;
+    [SerializeField] public GameManager myGM;
+    [SerializeField] EnemySpawner spawner;
 
     [SerializeField] List<GameObject> bottomLayerEnemiesArray;
     [SerializeField] List<GameObject> allEnemiesArray;
 
     public List<GameObject> AllEnemiesArray { get => allEnemiesArray; set => allEnemiesArray = value; }
     
-    private void Awake() {
+    private void OnEnable() {
         bottomLayerEnemiesArray = new List<GameObject>(11);;
-        AllEnemiesArray = new List<GameObject>();        
-        
+        AllEnemiesArray = new List<GameObject>();   
     }
+
 
     private void Update() {
         if(allEnemiesArray.Count == 0){
-            myGM.GameOver();
+            myGM.level++;
+            myGM.UIManager.UpdateLevelText(myGM.level);            
+            spawner.SpawnEnemies();
         }
     }
-
     
-    // Start is called before the first frame update
-    void Start()
-    {            
-        if(myGM.state == GAME_STATE.GAME){  
-            InvokeRepeating("ChooseEnemyToFire",5,2);
-        }
-    }
 
     public void AddToBottonLayerArray(GameObject enemy){
         if(!bottomLayerEnemiesArray.Contains(enemy)){
@@ -49,10 +46,14 @@ public class EnemyManager : MonoBehaviour
 
     public void ChooseEnemyToFire(){        
         if(bottomLayerEnemiesArray.Count > 0) {
-            int enemyInArray = Random.Range(0,bottomLayerEnemiesArray.Count-1);
-            bottomLayerEnemiesArray[enemyInArray].GetComponent<EnemyController>().Shoot();
+            int enemyInArray = UnityEngine.Random.Range(0,bottomLayerEnemiesArray.Count-1);
+            bottomLayerEnemiesArray[enemyInArray].GetComponent<Enemy>().Shoot();
         }
     }
 
-
+    internal void Init()
+    {
+        InvokeRepeating("ChooseEnemyToFire",5,2);
+        spawner.InvokeRepeating("SpawnMysteriousShip",10,100);
+    }
 }

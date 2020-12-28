@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6110468790993591913}
   - component: {fileID: 2296215379229067603}
   - component: {fileID: 555827520602885990}
-  - component: {fileID: -8661107260087896854}
   - component: {fileID: -3611910283869343561}
   m_Layer: 0
   m_Name: Enemy 3
@@ -132,23 +131,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &-8661107260087896854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520312954670346325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7b10de170063ad408b5c86ac437d27d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyManager: {fileID: 0}
-  enemyComponent: {fileID: 0}
-  lowestEnemyInLane: 0
-  projectilePrefab: {fileID: 806288048571458138, guid: c77cfad4314366342b02c374480b4cf1,
-    type: 3}
 --- !u!114 &-3611910283869343561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,5 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5eb53ac4763494bb8f371763d98e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyManager: {fileID: 0}
   layer: 0
   pointWorth: 30
+  lowestEnemyInLane: 0
+  projectilePrefab: {fileID: 806288048571458138, guid: c77cfad4314366342b02c374480b4cf1,
+    type: 3}
+  isMysteriousShip: 0

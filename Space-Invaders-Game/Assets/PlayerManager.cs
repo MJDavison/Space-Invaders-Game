@@ -11,19 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameManager myGM;
     
 
-    public int Lives { get => lives; set => lives = value; }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int Lives { get => lives; set => lives = value; }   
 
     public void RespawnPlayer()
     {
@@ -37,4 +25,9 @@ public class PlayerManager : MonoBehaviour
         }
 
     }
+
+    // internal void Init()
+    // {
+    //     throw new NotImplementedException();
+    // }
 }

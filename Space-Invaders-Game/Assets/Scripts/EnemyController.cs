@@ -4,84 +4,64 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] EnemyManager EnemyManager;
-    [SerializeField] Enemy enemyComponent;
-    float elapsedTime;
+    [SerializeField] EnemyManager EnemyManager;    
+    
     GameManager myGM;
-    Ray2D ray;
-    RaycastHit2D hit;
-    [SerializeField] bool lowestEnemyInLane;
-    [SerializeField] GameObject projectilePrefab;
+    
+    [SerializeField] float directionToMove = 0.1f;    
 
     GameObject GameController;
 
-    float shotCoolDown;
+    
+    [SerializeField] int timeUntilMovement = 1;
+    [SerializeField] int howOftenToMove = 5;
+
+    [SerializeField] float minX = 3.5f; //-7.75f;
+    [SerializeField] float maxX = 4.5f; //7.75f;
+    
 
     //Rigidbody2D enemyRB;
     //float enemyMovementSpeed = 1;
     // Start is called before the first frame update
-    void Start()
-    {
+    private void OnEnable() {        
         GameController = GameObject.FindGameObjectWithTag("GameController");
         EnemyManager = GameController.GetComponent<EnemyManager>();        
-        enemyComponent = GetComponent<Enemy>();
-        myGM = GameController.GetComponent<GameManager>();                        
+        myGM = GameController.GetComponent<GameManager>();        
+        StartCoroutine(MoveEnemy(gameObject.transform,timeUntilMovement,howOftenToMove));        
     }
 
     
 
-    // Update is called once per frame
-    void Update()
-    {    
-        elapsedTime += Time.deltaTime;
-        shotCoolDown -= Time.deltaTime;
-        hit = Physics2D.Raycast(transform.position, -Vector2.up);
-        
 
-        if(hit.collider != null){
-            if(!hit.collider.CompareTag("Enemy")){
-                lowestEnemyInLane = true;
-            }      
-        }else{
-            lowestEnemyInLane = true;
+
+    
+    
+    public IEnumerator MoveEnemy(Transform enemyToMove, int timerToStart, int timerToRepeat ){
+        yield return new WaitForSeconds(timerToStart);
+        if(Mathf.Approximately(transform.position.x, maxX)||Mathf.Approximately(transform.position.x, minX)){
+            //(float)transform.position.x == (float)myGM.BottomRightCorner.x
+            if(directionToMove.Equals(0.1f)){
+                directionToMove = -0.1f;                
+                //print("Direction To Move Changed");
+            } else{
+                directionToMove = 0.1f;
+                //print("Direction To Move Changed");            
+            }            
+            transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
         }
         
-        if(lowestEnemyInLane){
-            EnemyManager.AddToBottonLayerArray(gameObject);
-        }
         
-    }
-
-    // private void LateUpdate() {
-    //     int valueToFire = 5;
-    //     if(lowestEnemyInLane && shotCoolDown <= 0){
-    //         if(Random.Range(0,11) == valueToFire){
-    //             Shoot();
-    //         }
-    //         //Can shoot, so shoot every few seconds.            
-    //     }
-    // }
-
-    // private void Shoot(){        
-    //     
-    //     shotCoolDown = 5;
         
-    // }
+        //print(Math.Round(transform.position.x, 15).ToString());        
+        transform.Translate(new Vector2(directionToMove, 0));
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag("Projectile")){
-            Destroy(gameObject);
-            EnemyManager.RemoveFromBottomLayerArray(gameObject);
-            EnemyManager.AllEnemiesArray.Remove(gameObject);
-            myGM.ScoreManager.PlayerOneScore += enemyComponent.PointWorth;
-            Destroy(other.gameObject);
-            //Add score etc...
-        }
-    }
+        //print("Direction To Move:" + directionToMove);
+        //enemyRB.velocity = Vector2.right * directionToMove * enemyMovementSpeed;
+        StartCoroutine(MoveEnemy(transform,timeUntilMovement,howOftenToMove));
+        
+    } 
 
-    public void Shoot(){
-        GameObject projectile =  Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y - 0.3f), projectilePrefab.transform.rotation);
-        projectile.GetComponent<Rigidbody2D>().velocity = Vector2.down * 5;
-    }
+
+    
 
 }

@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     Vector2 topLeftCorner = new Vector2(-3.5f, 7f);
     Vector2 bottomRightCorner = new Vector2(4.5f, -0);
 
+    public int level = 1;
+
     public Vector2 TopLeftCorner { get => topLeftCorner; set => topLeftCorner = value; }
     public Vector2 BottomRightCorner { get => bottomRightCorner; set => bottomRightCorner = value; }
     
@@ -19,10 +21,8 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager { get => uiManager; set => uiManager = value; }
 
     [Header("Management Script References")]
+    [SerializeField] static GameManager myGM;
     [SerializeField] ScoreManager scoreManager;
-
-    
-
     [SerializeField] PlayerManager playerManager;
     [SerializeField] EnemyManager enemyManager;
     [SerializeField] UIManager uiManager;
@@ -31,7 +31,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject menuParent;
     [SerializeField] public GameObject gameParent;
     [SerializeField] public GameObject gameOverParent;
+    
 
+    private void Awake() {
+        myGM = this.GetComponent<GameManager>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +47,16 @@ public class GameManager : MonoBehaviour
     public void StartGame(){
         state=GAME_STATE.GAME;
         menuParent.SetActive(false);
-        gameParent.SetActive(true);
+        gameParent.SetActive(true);        
+        InitializeManagers();
+    }
+
+    private void InitializeManagers()
+    {
+        scoreManager.Init();
+//        playerManager.Init();
+        enemyManager.Init();
+        uiManager.Init();
     }
 
     internal void GameOver()

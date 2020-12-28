@@ -17,17 +17,26 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameManager myGM;
     [SerializeField] GameObject enemy;
 
-    [SerializeField] GameObject[] enemyPrefabs; // 3 normal, 1 fly over for a total of 4.
+    [SerializeField] GameObject[] enemyPrefabs; // 3 normal, 1 mysterious for a total of 4.
 
     private void Awake()
     {        
-        numOfEnemies = enemiesPerLayer * numOfLayers;
-        //startingPosition = new Vector3(-2.5f, 7.5f, 0f);
-        positionToSpawn = startingPosition;
+        numOfEnemies = enemiesPerLayer * numOfLayers;            
     }
+
+    public void SpawnMysteriousShip(){
+        GameObject mysteriousShip = Instantiate(enemyPrefabs[3]);
+        mysteriousShip.transform.SetParent(gameObject.transform.parent.transform); //The parent of the parent transform, so the game parent.        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        SpawnEnemies();
+    }
+
+    public void SpawnEnemies(){
+        positionToSpawn = startingPosition;
         int enemyID = 0;
         int enemyToSpawn = 0;
         for (int i = 0; i < numOfLayers; i++)
@@ -54,32 +63,7 @@ public class EnemySpawner : MonoBehaviour
             }
             positionToSpawn = new Vector3(startingPosition.x, positionToSpawn.y-0.8f, positionToSpawn.z);
         }
-
-
-
-        InvokeRepeating("MoveEnemy", 5, 2);
     }
-    float directionToMove = 0.1f;    
-    public void MoveEnemy(){
-        
-        if(Mathf.Approximately(transform.position.x, 4.5f)||Mathf.Approximately(transform.position.x, 3.5f)){
-            //(float)transform.position.x == (float)myGM.BottomRightCorner.x
-            if(directionToMove.Equals(0.1f)){
-                directionToMove = -0.1f;                
-                //print("Direction To Move Changed");
-            } else{
-                directionToMove = 0.1f;
-                //print("Direction To Move Changed");            
-            }            
-            transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
-        }
-        
-        
-        
-        //print(Math.Round(transform.position.x, 15).ToString());        
-        transform.Translate(new Vector2(directionToMove, 0));
-        //print("Direction To Move:" + directionToMove);
-        //enemyRB.velocity = Vector2.right * directionToMove * enemyMovementSpeed;
-        
-    }    
+
+       
 }

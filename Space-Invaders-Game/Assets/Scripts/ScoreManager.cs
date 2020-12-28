@@ -7,11 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] GameManager myGM;
     [SerializeField] public HighScore highScoreSO;
-
-    private void Awake() {
-        GameObject GameController = GameObject.FindGameObjectWithTag("GameController");
-        myGM = GameController.GetComponent<GameManager>();
-    }
+    
     [SerializeField] int playerOneScore;        
 
     public int PlayerOneScore { get => playerOneScore; 
@@ -28,5 +24,11 @@ public class ScoreManager : MonoBehaviour
         } else{
             return false;
         }       
+    }
+
+    internal void Init()
+    {
+        GameObject GameController = GameObject.FindGameObjectWithTag("GameController");
+        myGM = GameController.GetComponent<GameManager>();
     }
 }

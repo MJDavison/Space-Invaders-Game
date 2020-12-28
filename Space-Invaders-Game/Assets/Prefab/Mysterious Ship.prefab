@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2520312954670346325
+--- !u!1 &7653351420404159725
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2784176133573316937}
-  - component: {fileID: 6110468790993591913}
-  - component: {fileID: 2296215379229067603}
-  - component: {fileID: 555827520602885990}
-  - component: {fileID: -1164788629908566677}
-  - component: {fileID: -2091149833024569589}
+  - component: {fileID: 7956937669497927153}
+  - component: {fileID: 2018570494551505617}
+  - component: {fileID: 6274097497038646763}
+  - component: {fileID: 5726727119484021726}
+  - component: {fileID: 3041451027064216499}
+  - component: {fileID: -9037188258872123452}
   m_Layer: 0
-  m_Name: Enemy 4
-  m_TagString: Enemy
+  m_Name: Mysterious Ship
+  m_TagString: MysteriousShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2784176133573316937
+--- !u!4 &7956937669497927153
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520312954670346325}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_GameObject: {fileID: 7653351420404159725}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.19, y: 6.91, z: 0}
   m_LocalScale: {x: 1.5, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6110468790993591913
+--- !u!212 &2018570494551505617
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520312954670346325}
+  m_GameObject: {fileID: 7653351420404159725}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -85,13 +85,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2296215379229067603
+--- !u!61 &6274097497038646763
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520312954670346325}
+  m_GameObject: {fileID: 7653351420404159725}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -111,14 +111,14 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
---- !u!50 &555827520602885990
+--- !u!50 &5726727119484021726
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520312954670346325}
+  m_GameObject: {fileID: 7653351420404159725}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -132,34 +132,40 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &-1164788629908566677
+--- !u!114 &3041451027064216499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520312954670346325}
+  m_GameObject: {fileID: 7653351420404159725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5eb53ac4763494bb8f371763d98e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyManager: {fileID: 0}
+  layer: 0
+  pointWorth: 300
+  lowestEnemyInLane: 0
+  projectilePrefab: {fileID: 806288048571458138, guid: c77cfad4314366342b02c374480b4cf1,
+    type: 3}
+  isMysteriousShip: 1
+--- !u!114 &-9037188258872123452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7653351420404159725}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7b10de170063ad408b5c86ac437d27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyManager: {fileID: 0}
-  enemyComponent: {fileID: 0}
-  lowestEnemyInLane: 0
-  projectilePrefab: {fileID: 806288048571458138, guid: c77cfad4314366342b02c374480b4cf1,
-    type: 3}
---- !u!114 &-2091149833024569589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2520312954670346325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e5eb53ac4763494bb8f371763d98e2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layer: 0
-  pointWorth: 300
+  directionToMove: -0.1
+  timeUntilMovement: 1
+  howOftenToMove: 5
+  minX: 7.75
+  maxX: -7.75

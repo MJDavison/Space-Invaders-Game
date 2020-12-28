@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text highScoreText;
     [SerializeField] Text playerOneScoreText;    
     [SerializeField] Text playerLivesText;
+    [SerializeField] Text levelText;
     [SerializeField] GameObject playerHealthSpriteParent;
     [SerializeField] GameObject playerSpritePrefab;
     List<GameObject> playerHealthSprites;
@@ -19,24 +21,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text scoreText;
     [SerializeField] bool newHighScore;
 
-
-    private void Awake() {
-        UpdateLivesSpriteCount(myGM.PlayerManager.Lives-1);
-    }
-    
-    
     public void SetPlayerOneScore(int playerOneScore){
         playerOneScoreText.text = playerOneScore.ToString();
     }
-
-    
-
+ 
     public void UpdateHighScore(int highScore){        
         highScoreText.text = highScore.ToString();
     }
 
     public void UpdatePlayerLivesText(int lives){
         playerLivesText.text = lives.ToString();
+    }
+
+    public void UpdateLevelText(int level){
+        levelText.text = level.ToString();
     }
 
     public void UpdateLivesSpriteCount(int numOfSprites){
@@ -62,5 +60,10 @@ public class UIManager : MonoBehaviour
             newHighScoreText.text = "High Score! \n" + myGM.ScoreManager.highScoreSO.highScore.ToString();
         }
         scoreText.text = "Score: \n" + myGM.ScoreManager.PlayerOneScore.ToString();
+    }
+
+    internal void Init()
+    {
+        UpdateLivesSpriteCount(myGM.PlayerManager.Lives-1);
     }
 }
